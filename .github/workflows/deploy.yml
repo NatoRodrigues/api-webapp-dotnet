@@ -1,0 +1,54 @@
+name: .NET CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do Código
+      uses: actions/checkout@v4
+
+    - name: Configurar o SDK do .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restaurar Dependências
+      run: dotnet restore
+
+    - name: Compilar a Aplicação (Build)
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publicar Binários Otimizados (Publish)
+      run: dotnet publish --configuration Release --output ./publish --no-build
+
+    - name: Arquivar Artefactos de Build
+      uses: actions/upload-artifact@v4
+      with:
+        name: webapp-release
+        path: ./publish/
+
+  # Etapa de Deploy Automatizado (Simulação de Padrão SRE)
+  deploy-to-infrastructure:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    # Só executa o deploy se a branch principal for atualizada
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Descarregar Artefactos
+      uses: actions/download-artifact@v4
+      with:
+        name: webapp-release
+        path: ./publish
+
+    # Em ambiente corporativo real, aqui entraria a integração com AWS CodeDeploy,
+    # envio para um S3 Bucket privado, ou execução segura via SSH nas instâncias EC2 do Load Balancer.
+    - name: Registar Conclusão do Pipeline
+      run: |
+        echo "Build compilado com sucesso e pronto para distribuição nas instâncias EC2."
+        ls -la ./publish

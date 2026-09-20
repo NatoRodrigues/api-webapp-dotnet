@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "MFFehsddDOg=",
+  "success": true,
+  "projectFilePath": "/mnt/c/Users/renat/api-webapp-dotnet/webapp.csproj",
+  "expectedPackageFiles": [
+    "/home/acromata/.nuget/packages/awssdk.core/4.0.102.6/awssdk.core.4.0.102.6.nupkg.sha512",
+    "/home/acromata/.nuget/packages/awssdk.dynamodbv2/4.0.104/awssdk.dynamodbv2.4.0.104.nupkg.sha512"
+  ],
+  "logs": []
+}
