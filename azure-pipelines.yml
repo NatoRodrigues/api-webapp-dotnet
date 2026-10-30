@@ -1,0 +1,9 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo "Minha primeira build AZ-400"
+  displayName: "Executar build"
