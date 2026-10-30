@@ -4,6 +4,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo "Minha primeira build AZ-400"
-  displayName: "Executar build"
+jobs:
+- job: Build
+  steps:
+  - script: echo "Fazendo build"
+    displayName: "Build"
+
+- job: Test
+  steps:
+  - script: echo "Fazendo testes"
+    displayName: "Test"
